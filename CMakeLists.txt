@@ -8,12 +8,6 @@ project(platformer LANGUAGES CXX
 
 add_executable(${PROJECT_NAME}
 	src/main.cpp
-
-	src/window.hpp
-	src/window.cpp
-
-	src/inputs/keyboard.hpp
-	src/inputs/mouse.hpp
 )
 
 # compiling options:
@@ -27,7 +21,6 @@ target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Werror -pedantic)
 
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 
-find_package(SDL2 REQUIRED)
-target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC ${SDL2_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::SDL2)
-target_link_libraries(${PROJECT_NAME} PUBLIC SDL2::SDL2main)
+add_subdirectory(engine)
+target_include_directories(${PROJECT_NAME} PRIVATE engine/include)
+target_link_libraries(${PROJECT_NAME} PRIVATE engine)
